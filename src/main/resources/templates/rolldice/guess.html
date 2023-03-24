@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Guess</title>
+</head>
+<body>
+
+<div class="alert alert-danger" th:if="${diceroll == guess}">
+	<h5>The dice rolled a <span th:text="${diceroll}"></span></h5>
+	<h5>You guessed <span th:text="${guess}"></span></h5>
+	<h5>Good guess!</h5>
+</div>
+
+<div class="alert alert-danger" th:if="${diceroll != guess}">
+	<h5>The dice rolled a <span th:text="${diceroll}"></span></h5>
+	<h5>You guessed <span th:text="${guess}"></span></h5>
+	<h5>Maybe next time...</h5>
+</div>
+
+<a href="/roll-dice">Try Again</a>
+
+
+
+
+</body>
+</html>
