@@ -1,44 +1,44 @@
 package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.Post;
+import com.codeup.codeupspringblog.repositories.PostRepository;
+import lombok.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 @Controller
 @RequestMapping(path = "/posts")
 public class PostController {
 
+    private final PostRepository postDao;
+
     @GetMapping
-    public String indexPage(Model model) {
-        List<Post> posts = new ArrayList<>();
-        Post postOne = new Post("Hello", "This is my first post!");
-        Post postTwo = new Post("Second post", "And this is my second post!");
-        posts.add(postOne);
-        posts.add(postTwo);
+    public String all(Model model) {
+        List<Post> posts = postDao.findAll();
         model.addAttribute("posts", posts);
         return "posts/index";
     }
 
-    @GetMapping(path = "/{id}")
-    public String individualPost(Model model, @PathVariable int id) {
-        Post post = new Post("Hello", "This is my first post!");
+    @GetMapping(path = "/{postId}")
+    public String individualPost(Model model, @PathVariable long postId) {
+        Post post = postDao.findById(postId).get();
         model.addAttribute("post", post);
         return "posts/show";
     }
 
     @GetMapping(path = "/create")
-    @ResponseBody
-    public String viewCreatePostForm() {
-        return "view the form for creating a post";
+    public String viewCreatePostForm(Model model) {
+        model.addAttribute("newPost", new Post());
+        return "posts/create";
     }
 
     @PostMapping(path = "/create")
-    @ResponseBody
-    public String creatingPost() {
-        return "create a new post";
+    public String creatingPost(@ModelAttribute Post newPost) {
+        postDao.save(newPost);
+        return "redirect:/posts";
     }
 
 }
