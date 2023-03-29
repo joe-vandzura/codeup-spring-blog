@@ -7,8 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Entity
+@Table(name = "posts")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,5 +20,18 @@ public class Post {
     @Column(length = 1024, nullable = true, unique = false)
     private String body;
 
+    @ManyToOne
+    @JoinColumn (name = "user_id")
+    private User user;
 
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", user=" + user +
+                '}';
+    }
 }
