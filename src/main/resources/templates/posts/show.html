@@ -10,6 +10,7 @@
 <div>
 <h3 th:text="${post.title}"></h3>
 <p th:text="${post.body}" />
+<p th:text="${post.user.email}" />
 </div>
 
 <footer th:replace="partials/partials :: footer" />
