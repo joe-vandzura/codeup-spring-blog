@@ -47,4 +47,20 @@ public class PostController {
         return "redirect:/posts";
     }
 
+    @GetMapping(path = "/{postId}/edit")
+    public String viewCEditPostPage(Model model, @PathVariable Long postId) {
+        Post clickedPost = postDao.findById(postId).get();
+        model.addAttribute("post", clickedPost);
+        return "posts/edit";
+    }
+
+    @PostMapping(path = "/{postId}/edit")
+    public String editingPost(@ModelAttribute Post newPost, @PathVariable Long postId) {
+        Post editedPost = postDao.findById(postId).get();
+        editedPost.setTitle(newPost.getTitle());
+        editedPost.setBody(newPost.getBody());
+        postDao.save(editedPost);
+        return "redirect:/posts";
+    }
+
 }
