@@ -1,4 +1,4 @@
-package com.codeup.codeupspringblog;
+package com.codeup.codeupspringblog.models;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,7 +19,7 @@ public class User {
     @Column(length = 1024, nullable = false, unique = true)
     private String username;
 
-    @Column(length = 1024, nullable = false, unique = false)
+    @Column(length = 1024, nullable = false, unique = true)
     private String email;
 
     @Column(length = 1024, nullable = false, unique = false)
@@ -28,6 +28,13 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 
     private List<Post> posts;
+
+    public User(User copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
 
     @Override
     public String toString() {

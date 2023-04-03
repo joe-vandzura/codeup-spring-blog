@@ -1,5 +1,6 @@
-package com.codeup.codeupspringblog;
+package com.codeup.codeupspringblog.models;
 
+import com.codeup.codeupspringblog.models.User;
 import jakarta.persistence.*;
 import lombok.*;
 
