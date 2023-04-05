@@ -32,7 +32,6 @@ public class Post {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
-                ", user=" + user +
                 '}';
     }
 }
